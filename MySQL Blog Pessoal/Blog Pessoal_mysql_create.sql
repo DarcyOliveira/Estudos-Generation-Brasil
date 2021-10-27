@@ -11,7 +11,7 @@ CREATE TABLE `Temas` (
 CREATE TABLE `Postagens` (
 	`id` bigint,
 	`titulo` varchar(255) NOT NULL,
-	`texto` varchar(255) NOT NULL,
+	`texto` varchar(1000) NOT NULL,
 	`data` TIMESTAMP(255) NOT NULL,
 	`tema_id` bigint,
 	`usuario_id` bigint,
