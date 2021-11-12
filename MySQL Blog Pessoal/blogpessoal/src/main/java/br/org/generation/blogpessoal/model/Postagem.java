@@ -14,28 +14,32 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "tb_postagem")
-
+@Table(name = "tb_postagens")
 public class Postagem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotNull(message = "O campo título é obrigatório!")
-	@Size(min = 5, max = 100, message = "Min de caractéres 5 e máx 100")
+	@NotNull(message = "O atributo título é obrigatório")
+	@Size(min = 5, max = 100, message = "O atributo título deve conter no mínimo 05 e no máximo 100 caracteres")
 	private String titulo;
 
-	@NotNull(message = "O campo texto é obrigatório!")
-	@Size(min = 10, max = 1000, message = "Min de caractéres 10 e máx 1000")
+	@NotNull(message = "O atributo texto é obrigatório")
+	@Size(min = 10, max = 500, message = "O atributo texto deve conter no mínimo 10 e no máximo 500 caracteres")
 	private String texto;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data = new java.sql.Date(System.currentTimeMillis());
 
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
 	private Tema tema;
+
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 
 	public long getId() {
 		return id;
@@ -69,13 +73,19 @@ public class Postagem {
 		this.data = data;
 	}
 
-	@ManyToOne
-	@JsonIgnoreProperties("postagem")
 	public Tema getTema() {
 		return tema;
 	}
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 }
