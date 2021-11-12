@@ -15,34 +15,38 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Entity                                             		
-@Table(name = "tb_produtos")	
+@Entity
+@Table(name = "tb_produtos")
 public class Produto {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@NotNull(message = "Nome é obrigatório!")                                       										
+
+	@NotNull(message = "Nome é obrigatório!")
 	private String nome;
-	
-	@Size(max=500)
+
+	@Size(max = 500)
 	private String descricao;
-	
+
 	@NotNull(message = "Console é obrigatório!")
 	private String console;
-	
+
 	private int quantidade;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
 	@NotNull(message = "Preço é obrigatório!")
 	@Positive(message = "O preço deve ser maior do que zero!")
 	private BigDecimal preco;
-	
+
 	private String foto;
 
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
 	private Categoria categoria;
+
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Usuario usuario;
 
 	public long getId() {
 		return id;
@@ -108,5 +112,12 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 }
