@@ -3,7 +3,6 @@ package br.org.generation.blogpessoal.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +16,8 @@ import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @Entity
 @Table(name = "tb_usuarios")
 public class Usuario {
@@ -25,14 +26,16 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotNull(message = "O atributo nome é obrigatório")
+	@NotNull(message = "O atributo Nome é Obrigatório!")
 	private String nome;
 
-	@NotNull(message = "O atributo usuário é obrigatório")
+	@ApiModelProperty(example = "email@email.com.br")
+	@NotNull(message = "O atributo Usuário é Obrigatório!")
+	@Email(message = "O atributo Usuário deve ser um email válido!")
 	private String usuario;
 
-	@NotNull(message = "O atributo senha é obrigatório")
-	@Size(min = 8, message = "O atributo senha deve ter no mínimo 8 caracteres")
+	@NotBlank(message = "O atributo Senha é Obrigatória!")
+	@Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
 	private String senha;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE)
@@ -40,17 +43,19 @@ public class Usuario {
 	private List<Postagem> postagem;
 
 	public Usuario(long id, String nome, String usuario, String senha) {
+
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
 		this.senha = senha;
+
 	}
 
 	public Usuario() {
 	}
 
 	public long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(long id) {
@@ -58,7 +63,7 @@ public class Usuario {
 	}
 
 	public String getNome() {
-		return this.nome;
+		return nome;
 	}
 
 	public void setNome(String nome) {
@@ -66,7 +71,7 @@ public class Usuario {
 	}
 
 	public String getUsuario() {
-		return this.usuario;
+		return usuario;
 	}
 
 	public void setUsuario(String usuario) {
@@ -74,7 +79,7 @@ public class Usuario {
 	}
 
 	public String getSenha() {
-		return this.senha;
+		return senha;
 	}
 
 	public void setSenha(String senha) {
@@ -82,7 +87,7 @@ public class Usuario {
 	}
 
 	public List<Postagem> getPostagem() {
-		return this.postagem;
+		return postagem;
 	}
 
 	public void setPostagem(List<Postagem> postagem) {
